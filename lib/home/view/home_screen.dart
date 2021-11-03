@@ -33,7 +33,10 @@ class _HomeScreenState extends State<HomeScreen> {
         elevation: 0,
       ),
       floatingActionButton:
-          FloatingActionButton(onPressed: () {}, child: Icon(Icons.add)),
+          FloatingActionButton(onPressed: () {
+            Navigator.pushNamed(context, 'posting_page');
+
+          }, child: Icon(Icons.add)),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30),
         child: SafeArea(child: HomePage()),

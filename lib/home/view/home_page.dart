@@ -14,6 +14,7 @@ class _HomePageState extends State<HomePage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text("Home", style: theme.textTheme.headline1,),
+        Text("포스팅 내용 적어야해",),
       ],
     );
   }
