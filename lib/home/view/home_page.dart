@@ -34,8 +34,26 @@ class _HomePageState extends State<HomePage> {
                   child: ListView.separated(
                       itemBuilder: (cotext, index) {
                         return ListTile(
-                          title: Text("${state.posts![index].title}",
-                              style: theme.textTheme.headline4),
+                          onTap: () {
+                            print("글로 이동");
+                          },
+                          contentPadding: EdgeInsets.zero,
+                          title: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "@${state.posts![index].author}",
+                                style: theme.textTheme.subtitle2!
+                                    .copyWith(height: 1.5),
+                              ),
+                              Text(
+                                "${state.posts![index].title}",
+                                style: theme.textTheme.headline2!
+                                    .copyWith(height: 1.5),
+                              ),
+                            ],
+                          ),
+                          subtitle: Text("${state.posts![index].createAt}"),
                         );
                       },
                       separatorBuilder: (BuildContext context, int index) {
