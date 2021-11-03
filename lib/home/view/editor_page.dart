@@ -1,9 +1,10 @@
 import 'dart:convert';
 
+import 'package:blog_app/home/cubit/post_cubit.dart';
 import 'package:blog_app/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_quill/flutter_quill.dart' hide Text;
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class PostingPage extends StatefulWidget {
   static String routeName = 'posting_page';
@@ -16,11 +17,13 @@ class _PostingPageState extends State<PostingPage> {
 
   TextEditingController _titleController = TextEditingController();
   QuillController _controller = QuillController.basic();
-  CollectionReference posting = FirebaseFirestore.instance.collection('posting');
+
+  late PostCubit _postCubit;
 
   @override
   void initState() {
     super.initState();
+    _postCubit = BlocProvider.of<PostCubit>(context);
   }
 
   @override
@@ -34,11 +37,10 @@ class _PostingPageState extends State<PostingPage> {
             GestureDetector(
               onTap: () {
                 if(_titleController.text.isNotEmpty){
+                  var title = _titleController.text.toString();
                   var content = _controller.document.toDelta().toJson();
-                  posting.add({
-                    "title": _titleController.text.toString(),
-                    "content": content,
-                  });
+                  _postCubit.addPost(title, content);
+
 
                   showDialog(context: context, builder: (context) {
                     return AlertDialog(
