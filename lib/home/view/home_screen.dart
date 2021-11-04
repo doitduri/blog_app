@@ -1,6 +1,7 @@
 import 'package:blog_app/post/cubit/post_cubit.dart';
 import 'package:blog_app/post/view/editor_page.dart';
 import 'package:blog_app/repositories/post_repository/src/post_repository.dart';
+import 'package:blog_app/repositories/user_repository/src/firebase_user_repository.dart';
 import 'package:blog_app/repositories/user_repository/src/user_repository.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +21,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late UserRepository _userRepository;
+  late FirebaseUserRepository _firebaseUserRepository;
   CollectionReference posting =
       FirebaseFirestore.instance.collection('posting');
 
@@ -29,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    _userRepository = RepositoryProvider.of<UserRepository>(context);
+    _firebaseUserRepository = RepositoryProvider.of<FirebaseUserRepository>(context);
     postCubit = PostCubit(RepositoryProvider.of<PostRepository>(context));
   }
 
