@@ -13,6 +13,7 @@ Post _$PostFromJson(Map<String, dynamic> json) {
     content: json['content'] as String?,
     createAt: json['createAt'] as String?,
     author: json['author'] as String?,
+    comments: json['comments'] as List<dynamic>?,
   );
 }
 
@@ -22,4 +23,5 @@ Map<String, dynamic> _$PostToJson(Post instance) => <String, dynamic>{
       'content': instance.content,
       'createAt': instance.createAt,
       'author': instance.author,
+      'comments': instance.comments,
     };
