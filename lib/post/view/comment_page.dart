@@ -52,7 +52,7 @@ class _CommentPageState extends State<CommentPage>
                       });
                     },
                     decoration: InputDecoration(
-                        hintText: "댓글을 입력해주세요!",
+                        hintText: "모든 댓글을 익명입니다",
                         suffixIcon: MaterialButton(
                           onPressed: () {
                             postCubit.addPostComment(

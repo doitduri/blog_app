@@ -39,8 +39,9 @@ class _PostingPageState extends State<PostingPage> {
                 if(_titleController.text.isNotEmpty){
                   var title = _titleController.text.toString();
                   var content = jsonEncode(_controller.document.toDelta().toJson());
+                  var plainContent = _controller.document.toPlainText();
 
-                  _postCubit.addPost(title, content);
+                  _postCubit.addPost(title, content, plainContent);
 
 
                   showDialog(context: context, builder: (context) {

@@ -54,9 +54,10 @@ class _PostDetailPageState extends State<PostDetailPage>
           GestureDetector(
             onTap: () {
               if (isEdit) {
-                var content =
-                    jsonEncode(_controller.document.toDelta().toJson());
-                postCubit.updatePost(post, title, content);
+                var content = jsonEncode(_controller.document.toDelta().toJson());
+                var plainContent = _controller.document.toPlainText();
+
+                postCubit.updatePost(post, title, content, plainContent);
 
                 showDialog(
                     context: context,

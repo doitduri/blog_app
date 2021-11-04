@@ -7,10 +7,11 @@ class PostRepository {
   final postingCollection = FirebaseFirestore.instance.collection('posting');
 
   // Post: 글
-  Future<DocumentReference> addNewPost(title, content) async {
+  Future<DocumentReference> addNewPost(title, content, plainContent) async {
     DocumentReference newDoc = await postingCollection.add({
       "title": title,
       "content": content,
+      "plainContent": plainContent,
       "createAt": DateTime.now(),
       // TODO 파이어베이스로 연동해놓았긴 했지만, 편의상 직접 계정이름을 넣어 작업함
       //  (로그인 연동 필요 시 해당 코드 수정 필요)
@@ -20,8 +21,10 @@ class PostRepository {
     return newDoc;
   }
 
-  Future<QuerySnapshot> getAllPosts() async {
-    var documents = await postingCollection.orderBy("createAt").get();
+  Future<QuerySnapshot> getAllPosts(bool descending) async {
+    var documents = await postingCollection
+        .orderBy("createAt", descending: descending)
+        .get();
 
     return documents;
   }
@@ -31,9 +34,14 @@ class PostRepository {
     documents.delete();
   }
 
-  Future<void> updatePost(String postId, title, content) async {
+  Future<void> updatePost(String postId, String title, String content,
+      String updatePlainContent) async {
     var documents = postingCollection.doc(postId);
-    documents.update({"title": title, "content": content});
+    documents.update({
+      "title": title,
+      "content": content,
+      "plainContent": updatePlainContent
+    });
   }
 
   // Comment : 덧글

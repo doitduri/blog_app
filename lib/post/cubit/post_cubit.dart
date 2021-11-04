@@ -16,13 +16,14 @@ class PostCubit extends Cubit<PostState> {
   final PostRepository _postRepository;
 
   // Comment : 덧글
-  void addPost(title, content) async {
-    DocumentReference newDoc = await _postRepository.addNewPost(title, content);
+  void addPost(title, content, plainContent) async {
+    DocumentReference newDoc = await _postRepository.addNewPost(title, content, plainContent);
 
     Post newPost = Post.fromJson({
       "id": newDoc.id,
       "title": title,
       "content": content,
+      "plainContent": plainContent,
       "createAt": DateFormat.yMMMMd('en_US').format(DateTime.now()).toString(),
       "author": "doitduri",
     });
@@ -31,8 +32,8 @@ class PostCubit extends Cubit<PostState> {
         posts: state.posts == null ? [newPost] : state.posts! + [newPost]));
   }
 
-  void getAllPosts() async {
-    var documents = await _postRepository.getAllPosts();
+  void getAllPosts(descending) async {
+    var documents = await _postRepository.getAllPosts(descending);
 
     List<Post> newPosts = [];
 
@@ -40,8 +41,9 @@ class PostCubit extends Cubit<PostState> {
     documents.docs.forEach((element) {
       newPosts.add(Post(
           id: element.id,
-          title: element["title"],
+          title: element["title"].toString().trim(),
           content: element["content"].toString(),
+          plainContent: element["plainContent"].toString().trim(),
           comments: element["comments"],
           createAt: DateFormat.yMMMMd('en_US')
               .format(parseTime(element["createAt"]))
@@ -66,8 +68,8 @@ class PostCubit extends Cubit<PostState> {
     emit(state.copyWith(posts: newPosts));
   }
 
-  void updatePost(Post updatePost, String updateTitle, String updateContent) async {
-    await _postRepository.updatePost(updatePost.id!, updateTitle, updateContent);
+  void updatePost(Post updatePost, String updateTitle, String updateContent, String updatePlainContent) async {
+    await _postRepository.updatePost(updatePost.id!, updateTitle, updateContent, updatePlainContent);
 
     List<Post> newPosts = [];
 
@@ -77,9 +79,6 @@ class PostCubit extends Cubit<PostState> {
       } else {
         // 업데이트 하려는 문서라면
         newPosts.add(updatePost.copyWith(
-          createAt: DateFormat.yMMMMd('en_US')
-              .format(parseTime(updatePost.createAt))
-              .toString(),
           title: updateTitle,
           content: updateContent,
         ));
