@@ -81,6 +81,7 @@ class PostCubit extends Cubit<PostState> {
         newPosts.add(updatePost.copyWith(
           title: updateTitle,
           content: updateContent,
+          plainContent: updatePlainContent,
         ));
       }
     }

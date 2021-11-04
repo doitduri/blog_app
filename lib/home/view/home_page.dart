@@ -16,7 +16,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     postCubit = BlocProvider.of<PostCubit>(context);
-    postCubit.getAllPosts(false);
+    postCubit.getAllPosts(true);
   }
 
   @override
@@ -37,14 +37,14 @@ class _HomePageState extends State<HomePage> {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    postCubit.getAllPosts(false);
+                    postCubit.getAllPosts(true);
                   },
                   child: Text('최신 순'),
                   style: ElevatedButton.styleFrom( shape: StadiumBorder(), elevation:0, primary: Color(0xFF2A64D3)),
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    postCubit.getAllPosts(true);
+                    postCubit.getAllPosts(false);
                   },
                   child: Text('오래된 순'),
                   style: ElevatedButton.styleFrom(shape: StadiumBorder(), elevation:0, primary: Color(0xFF2A64D3)),

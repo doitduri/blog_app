@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "729623336447",
+    "project_id": "blog-3d7b5",
+    "storage_bucket": "blog-3d7b5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:729623336447:android:aa7abd062489c5450083ca",
+        "android_client_info": {
+          "package_name": "com.duri.blog.blog_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "729623336447-f4tf0unihnp0gp2u5p951v3nksajg4gb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAmxHmcJXdkZp66mjr-r2PS_gDs0o6Zjbo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "729623336447-f4tf0unihnp0gp2u5p951v3nksajg4gb.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "729623336447-letv68j5sn9plf9jpdao1b1sntf6s4mv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.duri.blog.blogApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

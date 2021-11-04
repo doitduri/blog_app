@@ -1,5 +1,6 @@
 import 'package:blog_app/repositories/post_repository/models/models.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
 
 class PostRepository {
   PostRepository();
@@ -22,7 +23,7 @@ class PostRepository {
   }
 
   Future<QuerySnapshot> getAllPosts(bool descending) async {
-    var documents = await postingCollection
+    QuerySnapshot documents = await postingCollection
         .orderBy("createAt", descending: descending)
         .get();
 
@@ -56,12 +57,13 @@ class PostRepository {
     var documents = postingCollection.doc(commentPost.id);
 
     var firebaseComment = FieldValue.arrayUnion(newComments);
+    
     documents.set({
       "author": commentPost.author,
       "comments": firebaseComment,
       "content": commentPost.content,
       "title": commentPost.title,
-      "createAt": commentPost.createAt
+      "createAt": DateFormat.yMMMMd('en_US').parse(commentPost.createAt!)
     });
   }
 }
