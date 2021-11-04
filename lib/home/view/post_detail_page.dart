@@ -2,12 +2,13 @@ import 'dart:convert';
 
 import 'package:blog_app/home/cubit/post_cubit.dart';
 import 'package:blog_app/repositories/post_repository/models/post.dart';
+import 'package:blog_app/theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_quill/flutter_quill.dart' hide Text;
 
-import '../../theme.dart';
+import 'comment_page.dart';
 
 class PostDetailPage extends StatefulWidget {
   PostDetailPage(this.post);
@@ -42,6 +43,7 @@ class _PostDetailPageState extends State<PostDetailPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: Colors.white,
         iconTheme: IconThemeData(color: Colors.black),
@@ -109,6 +111,24 @@ class _PostDetailPageState extends State<PostDetailPage>
           )
         ],
       ),
+      bottomNavigationBar: GestureDetector(
+        onTap: () {
+          showModalBottomSheet(
+              context: context,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(25)),
+              ),
+              builder: (context) => BlocProvider<PostCubit>.value(value: postCubit,
+                child: CommentPage(post),
+              ),
+              isScrollControlled: true);
+        },
+        child: Container(
+          height: 100,
+          color: theme.primaryColor,
+          child: Center(child: Text("댓글 남가기", style: theme.textTheme.button!.copyWith(color: Colors.white))),
+        ),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(30),
@@ -144,8 +164,11 @@ class _PostDetailPageState extends State<PostDetailPage>
                   ],
                 ),
               ),
-              Visibility(visible: isEdit, child:  QuillToolbar.basic(controller: _controller)),
+              Visibility(
+                  visible: isEdit,
+                  child: QuillToolbar.basic(controller: _controller)),
               Container(
+                margin: EdgeInsets.only(bottom: 110),
                 child: QuillEditor.basic(
                   controller: _controller,
                   readOnly: !isEdit,

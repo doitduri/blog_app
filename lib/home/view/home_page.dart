@@ -3,6 +3,7 @@ import 'package:blog_app/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_sizer/flutter_sizer.dart';
+import 'package:intl/intl.dart';
 
 import 'post_detail_page.dart';
 
@@ -31,7 +32,7 @@ class _HomePageState extends State<HomePage> {
             "Home",
             style: theme.textTheme.headline1,
           ),
-          state.posts != null
+          state.posts != null && state.posts!.isNotEmpty
               ? Expanded(
                   child: ListView.separated(
                       itemBuilder: (cotext, index) {
