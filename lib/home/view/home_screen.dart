@@ -1,5 +1,8 @@
+import 'package:blog_app/home/cubit/post_cubit.dart';
+import 'package:blog_app/home/view/editor_page.dart';
 import 'package:blog_app/repositories/user_repository/src/user_repository.dart';
 import 'package:blog_app/theme.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -18,11 +21,16 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   late UserRepository _userRepository;
+  CollectionReference posting =
+      FirebaseFirestore.instance.collection('posting');
+
+  late PostCubit postCubit;
 
   @override
   void initState() {
     super.initState();
     _userRepository = RepositoryProvider.of<UserRepository>(context);
+    postCubit = PostCubit(posting);
   }
 
   @override
@@ -32,11 +40,23 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Colors.white,
         elevation: 0,
       ),
-      floatingActionButton:
-          FloatingActionButton(onPressed: () {}, child: Icon(Icons.add)),
+      floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(
+              builder: (_) => BlocProvider<PostCubit>.value(
+                value: postCubit,
+                child: PostingPage(),
+              ),
+            ));
+          },
+          child: Icon(Icons.add)),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30),
-        child: SafeArea(child: HomePage()),
+        child: SafeArea(
+            child: BlocProvider.value(
+          value: postCubit,
+          child: HomePage(),
+        )),
       ),
     );
   }

@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 
 final theme = ThemeData(
     fontFamily: 'NotoSans',
-    primaryColorDark: const Color(0xFF051038),
-    primaryColorLight: const Color(0xFF092060),
-    primaryColor: const Color(0xFFFFBC00),
-    accentColor: const Color(0xFFFC1F49),
+    primaryColor: const Color(0xFF051038),
+    accentColor: const Color(0xFF092060),
     scaffoldBackgroundColor: const Color(0xFFFFFFFF),
     backgroundColor: const Color(0xFFFFFFFF),
     inputDecorationTheme: InputDecorationTheme(
