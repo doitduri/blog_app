@@ -11,7 +11,7 @@ class Post extends Equatable {
     this.content,
     this.createAt,
     this.author,
-});
+  });
 
   final String? id;
   final String? title;
@@ -19,11 +19,26 @@ class Post extends Equatable {
   final String? createAt;
   final String? author;
 
-
   factory Post.fromJson(Map<String, dynamic> json) => _$PostFromJson(json);
+
   Map<String, dynamic> toJson() => _$PostToJson(this);
 
   @override
   List<Object?> get props => [id, title, content, createAt, author];
 
+  Post copyWith({
+    String? id,
+    String? title,
+    String? content,
+    String? createAt,
+    String? author,
+  }) {
+    return Post(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      content: content ?? this.content,
+      createAt: createAt ?? this.createAt,
+      author: author ?? this.author,
+    );
+  }
 }
