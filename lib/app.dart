@@ -1,3 +1,4 @@
+import 'package:blog_app/repositories/post_repository/src/post_repository.dart';
 import 'package:blog_app/repositories/user_repository/src/firebase_user_repository.dart';
 import 'package:blog_app/repositories/user_repository/src/user_repository.dart';
 import 'package:flutter/widgets.dart';
@@ -19,6 +20,7 @@ class App extends StatelessWidget {
     return MultiRepositoryProvider(
         providers: [
           RepositoryProvider.value(value: userRepository),
+          RepositoryProvider(create: (_) => PostRepository()),
         ],
         child: MultiBlocProvider(providers: [
           BlocProvider<AuthenticationBloc>(

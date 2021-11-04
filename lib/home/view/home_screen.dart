@@ -1,5 +1,6 @@
 import 'package:blog_app/home/cubit/post_cubit.dart';
 import 'package:blog_app/home/view/editor_page.dart';
+import 'package:blog_app/repositories/post_repository/src/post_repository.dart';
 import 'package:blog_app/repositories/user_repository/src/user_repository.dart';
 import 'package:blog_app/theme.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -30,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     _userRepository = RepositoryProvider.of<UserRepository>(context);
-    postCubit = PostCubit(posting);
+    postCubit = PostCubit(RepositoryProvider.of<PostRepository>(context));
   }
 
   @override
