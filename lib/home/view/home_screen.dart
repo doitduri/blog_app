@@ -1,8 +1,7 @@
-import 'package:blog_app/home/cubit/post_cubit.dart';
-import 'package:blog_app/home/view/editor_page.dart';
+import 'package:blog_app/post/cubit/post_cubit.dart';
+import 'package:blog_app/post/view/editor_page.dart';
 import 'package:blog_app/repositories/post_repository/src/post_repository.dart';
 import 'package:blog_app/repositories/user_repository/src/user_repository.dart';
-import 'package:blog_app/theme.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

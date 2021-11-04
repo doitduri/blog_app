@@ -1,11 +1,8 @@
-import 'package:blog_app/home/cubit/post_cubit.dart';
-import 'package:blog_app/theme.dart';
+import 'package:blog_app/post/cubit/post_cubit.dart';
+import 'package:blog_app/post/view/post_detail_page.dart';
+import 'package:blog_app/support/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_sizer/flutter_sizer.dart';
-import 'package:intl/intl.dart';
-
-import 'post_detail_page.dart';
 
 class HomePage extends StatefulWidget {
   @override

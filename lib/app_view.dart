@@ -1,8 +1,8 @@
 
-import 'package:blog_app/routes.dart';
+import 'package:blog_app/support/routes.dart';
+import 'package:blog_app/support/theme.dart';
 import 'package:flutter/material.dart';
 
-import 'theme.dart';
 
 class AppView extends StatefulWidget {
   @override

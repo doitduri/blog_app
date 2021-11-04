@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:blog_app/home/utils.dart';
+import 'package:blog_app/support/utils.dart';
 import 'package:blog_app/repositories/post_repository/models/comment.dart';
 import 'package:blog_app/repositories/post_repository/models/post.dart';
 import 'package:blog_app/repositories/post_repository/src/post_repository.dart';

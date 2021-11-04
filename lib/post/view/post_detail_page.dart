@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:blog_app/home/cubit/post_cubit.dart';
+import 'package:blog_app/post/cubit/post_cubit.dart';
 import 'package:blog_app/repositories/post_repository/models/post.dart';
-import 'package:blog_app/theme.dart';
+import 'package:blog_app/support/theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
