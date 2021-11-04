@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_sizer/flutter_sizer.dart';
 
+import 'post_detail_page.dart';
+
 class HomePage extends StatefulWidget {
   @override
   State<HomePage> createState() => _HomePageState();
@@ -16,7 +18,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     postCubit = BlocProvider.of<PostCubit>(context);
-    postCubit.getPosts();
+    postCubit.getAllPosts();
   }
 
   @override
@@ -36,6 +38,14 @@ class _HomePageState extends State<HomePage> {
                         return ListTile(
                           onTap: () {
                             print("글로 이동");
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) => BlocProvider.value(
+                                          value: postCubit,
+                                          child: PostDetailPage(
+                                              state.posts![index]),
+                                        )));
                           },
                           contentPadding: EdgeInsets.zero,
                           title: Column(

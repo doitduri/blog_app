@@ -25,6 +25,7 @@ class PostCubit extends Cubit<PostState> {
     Post newPost = Post.fromJson({
       "id": newDoc.id,
       "title": title,
+      "content": content,
       "createAt": createAt,
       "author": "doitduri"
     });
@@ -33,7 +34,7 @@ class PostCubit extends Cubit<PostState> {
         posts: state.posts == null ? [newPost] : [newPost] + state.posts!));
   }
 
-  void getPosts() async {
+  void getAllPosts() async {
     var documents = await _postingCollection.get();
 
     List<Post> newPosts = [];
@@ -42,6 +43,7 @@ class PostCubit extends Cubit<PostState> {
       newPosts.add(Post(
           id: element.id,
           title: element["title"],
+          content: element["content"].toString(),
           createAt: element["createAt"],
           author: element["author"]));
     });
