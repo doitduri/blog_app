@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:blog_app/home/cubit/post_cubit.dart';
-import 'package:blog_app/theme.dart';
+import 'package:blog_app/post/cubit/post_cubit.dart';
+import 'package:blog_app/support/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_quill/flutter_quill.dart' hide Text;
@@ -39,8 +39,9 @@ class _PostingPageState extends State<PostingPage> {
                 if(_titleController.text.isNotEmpty){
                   var title = _titleController.text.toString();
                   var content = jsonEncode(_controller.document.toDelta().toJson());
+                  var plainContent = _controller.document.toPlainText();
 
-                  _postCubit.addPost(title, content);
+                  _postCubit.addPost(title, content, plainContent);
 
 
                   showDialog(context: context, builder: (context) {

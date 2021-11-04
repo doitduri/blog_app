@@ -1,11 +1,8 @@
-import 'package:blog_app/home/cubit/post_cubit.dart';
-import 'package:blog_app/theme.dart';
+import 'package:blog_app/post/cubit/post_cubit.dart';
+import 'package:blog_app/post/view/post_detail_page.dart';
+import 'package:blog_app/support/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_sizer/flutter_sizer.dart';
-import 'package:intl/intl.dart';
-
-import 'post_detail_page.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -19,7 +16,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     postCubit = BlocProvider.of<PostCubit>(context);
-    postCubit.getAllPosts();
+    postCubit.getAllPosts(false);
   }
 
   @override
@@ -28,9 +25,32 @@ class _HomePageState extends State<HomePage> {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Image.asset('assets/images/blog-logo-shape.png', width: 50),
           Text(
             "Home",
             style: theme.textTheme.headline1,
+          ),
+          Container(
+            child: Wrap(
+              spacing: 5,
+              direction: Axis.horizontal,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    postCubit.getAllPosts(false);
+                  },
+                  child: Text('최신 순'),
+                  style: ElevatedButton.styleFrom( shape: StadiumBorder(), elevation:0, primary: Color(0xFF2A64D3)),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    postCubit.getAllPosts(true);
+                  },
+                  child: Text('오래된 순'),
+                  style: ElevatedButton.styleFrom(shape: StadiumBorder(), elevation:0, primary: Color(0xFF2A64D3)),
+                )
+              ],
+            ),
           ),
           state.posts != null && state.posts!.isNotEmpty
               ? Expanded(
@@ -38,7 +58,6 @@ class _HomePageState extends State<HomePage> {
                       itemBuilder: (cotext, index) {
                         return ListTile(
                           onTap: () {
-                            print("글로 이동");
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -49,26 +68,41 @@ class _HomePageState extends State<HomePage> {
                                         )));
                           },
                           contentPadding: EdgeInsets.zero,
-                          title: Column(
+                          title: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 12.0),
+                            child: Text("${state.posts![index].title}",
+                                style: theme.textTheme.headline1!
+                                    .copyWith(fontSize: 25)),
+                          ),
+                          subtitle: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                "@${state.posts![index].author}",
-                                style: theme.textTheme.subtitle2!
-                                    .copyWith(height: 1.5),
-                              ),
-                              Text(
-                                "${state.posts![index].title}",
-                                style: theme.textTheme.headline2!
-                                    .copyWith(height: 1.5),
+                              Visibility(
+                                  visible:
+                                      state.posts![index].plainContent != null,
+                                  child: Text(
+                                    "${state.posts![index].plainContent}",
+                                    maxLines: 3,
+                                  )),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    "@${state.posts![index].author}  ",
+                                    style: theme.textTheme.subtitle2!
+                                        .copyWith(height: 1.5),
+                                  ),
+                                  Text("${state.posts![index].createAt}"),
+                                ],
                               ),
                             ],
                           ),
-                          subtitle: Text("${state.posts![index].createAt}"),
                         );
                       },
                       separatorBuilder: (BuildContext context, int index) {
-                        return Divider();
+                        return Divider(
+                          color: Colors.grey,
+                        );
                       },
                       itemCount: state.posts!.length))
               : Container(

@@ -10,6 +10,7 @@ class Post extends Equatable {
     this.id,
     this.title,
     this.content,
+    this.plainContent,
     this.createAt,
     this.author,
     this.comments,
@@ -18,6 +19,7 @@ class Post extends Equatable {
   final String? id;
   final String? title;
   final String? content;
+  final String? plainContent;
   final String? createAt;
   final String? author;
   final List<dynamic>? comments;
@@ -27,12 +29,14 @@ class Post extends Equatable {
   Map<String, dynamic> toJson() => _$PostToJson(this);
 
   @override
-  List<Object?> get props => [id, title, content, comments, createAt, author];
+  List<Object?> get props =>
+      [id, title, plainContent, content, comments, createAt, author];
 
   Post copyWith({
     String? id,
     String? title,
     String? content,
+    String? plainContent,
     String? createAt,
     String? author,
     List<dynamic>? comments,
@@ -41,6 +45,7 @@ class Post extends Equatable {
       id: id ?? this.id,
       title: title ?? this.title,
       content: content ?? this.content,
+      plainContent: plainContent ?? this.plainContent,
       createAt: createAt ?? this.createAt,
       author: author ?? this.author,
       comments: comments ?? this.comments,

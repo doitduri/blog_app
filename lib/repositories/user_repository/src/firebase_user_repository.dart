@@ -10,10 +10,12 @@ class FirebaseUserRepository implements UserRepository {
 
   Future<bool> isAuthenticated() async {
     final currentUser = _firebaseAuth.currentUser;
+    print("authenticate isAuthenticated $currentUser");
     return currentUser != null;
   }
 
   Future<void> authenticate() {
+    print("authenticate");
     return _firebaseAuth.signInWithEmailAndPassword(email: "doitduri@gmail.com", password: "duriTest!123");
   }
 
