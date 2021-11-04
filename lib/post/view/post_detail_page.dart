@@ -29,6 +29,8 @@ class _PostDetailPageState extends State<PostDetailPage>
   bool isEdit = false;
   late String title;
 
+  FocusNode focusNode = FocusNode();
+
   @override
   void initState() {
     super.initState();
@@ -76,13 +78,14 @@ class _PostDetailPageState extends State<PostDetailPage>
 
               setState(() {
                 isEdit = !isEdit;
+                focusNode.requestFocus();
               });
             },
             child: Container(
                 padding: EdgeInsets.only(right: 30),
                 alignment: Alignment.center,
                 child:
-                    Text(isEdit ? "완료" : "수정", style: theme.textTheme.button)),
+                    Text(isEdit ? "게시" : "수정", style: theme.textTheme.button)),
           ),
           GestureDetector(
             onTap: () {
@@ -118,15 +121,19 @@ class _PostDetailPageState extends State<PostDetailPage>
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(25)),
               ),
-              builder: (context) => BlocProvider<PostCubit>.value(value: postCubit,
-                child: CommentPage(post),
-              ),
+              builder: (context) => BlocProvider<PostCubit>.value(
+                    value: postCubit,
+                    child: CommentPage(post),
+                  ),
               isScrollControlled: true);
         },
         child: Container(
           height: 100,
           color: theme.primaryColor,
-          child: Center(child: Text("댓글 남가기", style: theme.textTheme.button!.copyWith(color: Colors.white))),
+          child: Center(
+              child: Text("댓글 남가기",
+                  style:
+                      theme.textTheme.button!.copyWith(color: Colors.white))),
         ),
       ),
       body: SafeArea(
@@ -142,6 +149,7 @@ class _PostDetailPageState extends State<PostDetailPage>
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     TextFormField(
+                      focusNode: focusNode,
                       initialValue: post.title,
                       onChanged: (value) {
                         setState(() {
@@ -169,9 +177,15 @@ class _PostDetailPageState extends State<PostDetailPage>
                   child: QuillToolbar.basic(controller: _controller)),
               Container(
                 margin: EdgeInsets.only(bottom: 110),
-                child: QuillEditor.basic(
+                child: QuillEditor(
                   controller: _controller,
                   readOnly: !isEdit,
+                  expands: false,
+                  scrollController: ScrollController(),
+                  autoFocus: isEdit,
+                  scrollable: true,
+                  focusNode: FocusNode(),
+                  padding: EdgeInsets.zero,
                 ),
               )
             ],
