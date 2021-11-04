@@ -77,6 +77,9 @@ class PostCubit extends Cubit<PostState> {
       } else {
         // 업데이트 하려는 문서라면
         newPosts.add(updatePost.copyWith(
+          createAt: DateFormat.yMMMMd('en_US')
+              .format(parseTime(updatePost.createAt))
+              .toString(),
           title: updateTitle,
           content: updateContent,
         ));
