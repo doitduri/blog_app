@@ -53,7 +53,7 @@ Flutter + Firebase Cloud Firestore로 구현하였습니다.
 
 ## 전체 시연영상
 https://user-images.githubusercontent.com/26545623/140443880-1cee96ae-9be0-4964-b96f-836761cfd829.MP4
-
+> 앱 사용해보기 [TestFlight](https://testflight.apple.com/join/AJCrUrY4)
 
 
 
