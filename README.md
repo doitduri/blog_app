@@ -47,10 +47,6 @@ Flutter + Firebase Cloud Firestore로 구현하였습니다.
 - BLoC 패턴으로 상태관리 (flutter_bloc ^7.3.1)
 <br/><br/>
 
-## 알려진 버그
-- [홈] 화면에서의 버튼 [최신 순] 과 [오래된 순] 대로 정렬되고 있지 않습니다.
-<br/><br/>
-
 ## 전체 시연영상
 https://user-images.githubusercontent.com/26545623/140443880-1cee96ae-9be0-4964-b96f-836761cfd829.MP4
 > 앱 사용해보기 [TestFlight](https://testflight.apple.com/join/AJCrUrY4)
